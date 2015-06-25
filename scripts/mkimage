@@ -236,6 +236,12 @@ elif [ "$BOOTLOADER" = "u-boot" ]; then
     mcopy $RELEASE_DIR/target/KERNEL.md5 "::/$KERNEL_NAME.md5"
     mcopy $RELEASE_DIR/target/SYSTEM.md5 ::/SYSTEM.md5
 
+    if [ -f "$INSTALL_SRC_DIR/files/recovery.img" -a -f "$TARGET_IMG/$IMAGE_NAME-bootloader.zip" ]; then
+      mcopy $INSTALL_SRC_DIR/files/recovery.img ::
+      mcopy $TARGET_IMG/$IMAGE_NAME-bootloader.zip ::
+      echo --update_package=/sdcard/$IMAGE_NAME-bootloader.zip > "$LE_TMP/factory_update_param.aml"
+    fi
+
     if [ -n "$UBOOT_SYSTEM" -a -f "$RELEASE_DIR/3rdparty/bootloader/u-boot-$UBOOT_SYSTEM.img" ]; then
       mcopy "$RELEASE_DIR/3rdparty/bootloader/u-boot-$UBOOT_SYSTEM.img" ::/u-boot.img
     elif [ -f $RELEASE_DIR/3rdparty/bootloader/u-boot.img ]; then
