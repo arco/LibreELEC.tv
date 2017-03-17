@@ -1,0 +1,35 @@
+From 553b3a18e543532efd5ebe0c017df9c4400ae8b3 Mon Sep 17 00:00:00 2001
+From: Arne Coucheron <arco68@gmail.com>
+Date: Fri, 5 Aug 2016 01:00:13 +0200
+Subject: [PATCH 03/13] [aml] Fix CPU temperature reading
+
+---
+ xbmc/utils/CPUInfo.cpp | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/xbmc/utils/CPUInfo.cpp b/xbmc/utils/CPUInfo.cpp
+index f1d07dd..e96cedb 100644
+--- a/xbmc/utils/CPUInfo.cpp
++++ b/xbmc/utils/CPUInfo.cpp
+@@ -99,6 +99,8 @@
+ 
+ #include "utils/StringUtils.h"
+ 
++#include "utils/AMLUtils.h"
++
+ // In milliseconds
+ #define MINIMUM_TIME_BETWEEN_READS 500
+ 
+@@ -617,7 +619,8 @@ bool CCPUInfo::getTemperature(CTemperature& temperature)
+     if (!ret)
+     {
+       ret = fscanf(m_fProcTemperature, "%d", &value);
+-      value = value / 1000;
++      if (!aml_present())
++        value = value / 1000;
+       scale = 'c';
+       ret++;
+     }
+-- 
+2.7.4
+

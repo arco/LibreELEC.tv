@@ -1,0 +1,30 @@
+From 01173572f88e6fb0a3b099f90cce001438571d29 Mon Sep 17 00:00:00 2001
+From: Alex Deryskyba <alex@codesnake.com>
+Date: Fri, 5 Aug 2016 01:03:12 +0200
+Subject: [PATCH 06/13] [aml] Ugly workaround to show DTS / AC3 caps but don't
+ run into multi channel issues as we can only open 2 pcm channels
+
+---
+ xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
+index 2acfe7a..f850d24 100644
+--- a/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
++++ b/xbmc/cores/AudioEngine/Sinks/AESinkALSA.cpp
+@@ -1342,6 +1342,12 @@ void CAESinkALSA::EnumerateDevicesEx(AEDeviceInfoList &list, bool force)
+ 
+ AEDeviceType CAESinkALSA::AEDeviceTypeFromName(const std::string &name)
+ {
++#ifdef HAS_LIBAMCODEC
++  // ugly workaround to show DTS / AC3 caps
++  // but don't run into multi channel issues
++  // as we can only open 2 pcm channels
++  return AE_DEVTYPE_IEC958;
++#endif
+   if (name.substr(0, 4) == "hdmi")
+     return AE_DEVTYPE_HDMI;
+   else if (name.substr(0, 6) == "iec958" || name.substr(0, 5) == "spdif")
+-- 
+2.7.4
+

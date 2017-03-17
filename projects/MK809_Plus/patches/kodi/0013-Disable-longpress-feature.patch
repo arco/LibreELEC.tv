@@ -1,0 +1,259 @@
+From 138bcb05387a281d1c2f1821b6f0bd2ab13032de Mon Sep 17 00:00:00 2001
+From: Arne Coucheron <arco68@gmail.com>
+Date: Fri, 5 Aug 2016 01:16:55 +0200
+Subject: [PATCH 13/13] Disable longpress feature
+
+ * Causes horrible button lag on Amlogic remote
+---
+ system/keymaps/keyboard.xml | 40 ----------------------------------------
+ 1 file changed, 40 deletions(-)
+
+diff --git a/system/keymaps/keyboard.xml b/system/keymaps/keyboard.xml
+index 9833cff..a6f434d 100644
+--- a/system/keymaps/keyboard.xml
++++ b/system/keymaps/keyboard.xml
+@@ -40,12 +40,9 @@
+       <pageup>PageUp</pageup>
+       <pagedown>PageDown</pagedown>
+       <return>Select</return>
+-      <return mod="longpress">ContextMenu</return>
+       <enter>Select</enter>
+-      <enter mod="longpress">ContextMenu</enter>
+       <backspace>Back</backspace>
+       <browser_back>Back</browser_back>
+-      <browser_back mod="longpress">ActivateWindow(Home)</browser_back>
+       <key id='65446'>Back</key>
+       <m>Menu</m>
+       <n mod="ctrl">ActivateWindow(PlayerControls)</n>
+@@ -53,9 +50,7 @@
+       <escape>PreviousMenu</escape>
+       <i>Info</i>
+       <menu>ContextMenu</menu>
+-      <menu mod="longpress">Menu</menu>
+       <c>ContextMenu</c>
+-      <c mod="longpress">Menu</c>
+       <space>Pause</space>
+       <x>Stop</x>
+       <period>SkipNext</period>
+@@ -173,7 +168,6 @@
+     <keyboard>
+       <i>info</i>
+       <end mod="ctrl">ShutDown()</end>
+-      <backspace mod="longpress">ActivateWindow(ShutdownMenu)</backspace>
+     </keyboard>
+   </Home>
+   <VirtualKeyboard>
+@@ -186,7 +180,6 @@
+       <enter>Select</enter>
+       <backspace>Backspace</backspace>
+       <browser_back>Backspace</browser_back>
+-      <browser_back mod="longpress">PreviousMenu</browser_back>
+     </keyboard>
+   </VirtualKeyboard>
+   <MyTVChannels>
+@@ -254,8 +247,6 @@
+       <delete>Delete</delete>
+       <m>Move</m>
+       <r>Rename</r>
+-      <play_pause mod="longpress">Highlight</play_pause>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyFiles>
+   <MyMusicPlaylist>
+@@ -264,7 +255,6 @@
+       <delete>Delete</delete>
+       <u>MoveItemUp</u>
+       <d>MoveItemDown</d>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyMusicPlaylist>
+   <MyMusicPlaylistEditor>
+@@ -272,7 +262,6 @@
+       <u>MoveItemUp</u>
+       <d>MoveItemDown</d>
+       <delete>Delete</delete>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyMusicPlaylistEditor>
+   <MyMusicFiles>
+@@ -280,14 +269,12 @@
+       <n>Playlist</n>
+       <q>Queue</q>
+       <delete>Delete</delete>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyMusicFiles>
+   <MyMusicLibrary>
+     <keyboard>
+       <n>Playlist</n>
+       <q>Queue</q>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyMusicLibrary>
+   <FullscreenVideo>
+@@ -297,16 +284,12 @@
+       <period>StepForward</period>
+       <comma>StepBack</comma>
+       <backspace>Fullscreen</backspace>
+-      <backspace mod="longpress">Stop</backspace>
+       <browser_back>Fullscreen</browser_back>
+-      <browser_back mod="longpress">Stop</browser_back>
+       <quote>Seek(-7)</quote> <!-- Replaces smallstepback -->
+       <opensquarebracket>BigStepForward</opensquarebracket>
+       <closesquarebracket>BigStepBack</closesquarebracket>
+       <return>OSD</return>
+       <enter>OSD</enter>
+-      <return mod="longpress">PlayPause</return>
+-      <enter mod="longpress">PlayPause</enter>
+       <m>OSD</m>
+       <menu>OSD</menu>
+       <i>Info</i>
+@@ -363,9 +346,7 @@
+       <pageup>IncreaseRating</pageup>
+       <pagedown>DecreaseRating</pagedown>
+       <backspace>Fullscreen</backspace>
+-      <backspace mod="longpress">Stop</backspace>
+       <browser_back>Fullscreen</browser_back>
+-      <browser_back mod="longpress">Stop</browser_back>
+       <return>OSD</return>
+       <enter>OSD</enter>
+       <m>OSD</m>
+@@ -453,7 +434,6 @@
+       <return>Rotate</return>
+       <enter>Rotate</enter>
+       <r>Rotate</r>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </SlideShow>
+   <ScreenCalibration>
+@@ -522,7 +502,6 @@
+       <delete>Delete</delete>
+       <n>Playlist</n>
+       <w>ToggleWatched</w>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyVideoLibrary>
+   <MyVideoFiles>
+@@ -530,7 +509,6 @@
+       <n>Playlist</n>
+       <q>Queue</q>
+       <w>ToggleWatched</w>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyVideoFiles>
+   <MyVideoPlaylist>
+@@ -539,13 +517,11 @@
+       <delete>Delete</delete>
+       <u>MoveItemUp</u>
+       <d>MoveItemDown</d>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyVideoPlaylist>
+   <MyPictures>
+     <keyboard>
+       <delete>Delete</delete>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MyPictures>
+   <ContextMenu>
+@@ -558,13 +534,11 @@
+     <keyboard>
+       <i>Back</i>
+       <d mod="ctrl">Back</d>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MusicInformation>
+   <MovieInformation>
+     <keyboard>
+       <i>Back</i>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MovieInformation>
+   <PictureInfo>
+@@ -575,7 +549,6 @@
+       <d mod="ctrl">Back</d>
+       <o>Back</o>
+       <space>Pause</space>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </PictureInfo>
+   <Teletext>
+@@ -594,7 +567,6 @@
+       <browser_back>Close</browser_back>
+       <u>MoveItemUp</u>
+       <d>MoveItemDown</d>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </Favourites>
+   <NumericInput>
+@@ -611,8 +583,6 @@
+       <down>Down</down>
+       <return>OSD</return>
+       <enter>OSD</enter>
+-      <return mod="longpress">ActivateWindow(PVROSDChannels)</return>
+-      <enter mod="longpress">ActivateWindow(PVROSDChannels)</enter>
+       <pageup>ChannelUp</pageup>
+       <pagedown>ChannelDown</pagedown>
+     </keyboard>
+@@ -625,8 +595,6 @@
+       <down>Down</down>
+       <return>OSD</return>
+       <enter>OSD</enter>
+-      <return mod="longpress">ActivateWindow(PVROSDChannels)</return>
+-      <enter mod="longpress">ActivateWindow(PVROSDChannels)</enter>
+       <pageup>ChannelUp</pageup>
+       <pagedown>ChannelDown</pagedown>
+     </keyboard>
+@@ -655,7 +623,6 @@
+   <FileBrowser>
+     <keyboard>
+       <space>Highlight</space>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </FileBrowser>
+   <ShutdownMenu>
+@@ -666,13 +633,11 @@
+   <AddonInformation>
+     <keyboard>
+       <i>Back</i>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </AddonInformation>
+   <AddonSettings>
+     <keyboard>
+       <delete>Delete</delete>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </AddonSettings>
+   <Addon>
+@@ -685,27 +650,22 @@
+       <yellow>Yellow</yellow>
+       <f4>Blue</f4>
+       <blue>Blue</blue>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </Addon>
+   <Programs>
+     <keyboard>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </Programs>
+   <Settings>
+     <keyboard>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </Settings>
+   <MediaFilter>
+     <keyboard>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </MediaFilter>
+   <Weather>
+     <keyboard>
+-      <backspace mod="longpress">ActivateWindow(Home)</backspace>
+     </keyboard>
+   </Weather>
+ </keymap>
+-- 
+2.7.4
+

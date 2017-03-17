@@ -1,0 +1,58 @@
+From a8229bfca5decd2a281c3aebaa6b00851e5dfa61 Mon Sep 17 00:00:00 2001
+From: popcornmix <popcornmix@gmail.com>
+Date: Fri, 5 Aug 2016 01:07:54 +0200
+Subject: [PATCH 12/13] logging: Add microsecond timer to log messages
+
+---
+ xbmc/utils/log.cpp | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/xbmc/utils/log.cpp b/xbmc/utils/log.cpp
+index 3443f12..31c4a99 100644
+--- a/xbmc/utils/log.cpp
++++ b/xbmc/utils/log.cpp
+@@ -24,6 +24,7 @@
+ #include "threads/Thread.h"
+ #include "utils/StringUtils.h"
+ #include "CompileInfo.h"
++#include "utils/TimeUtils.cpp"
+ 
+ static const char* const levelNames[] =
+ {"DEBUG", "INFO", "NOTICE", "WARNING", "ERROR", "SEVERE", "FATAL", "NONE"};
+@@ -198,19 +199,31 @@ void CLog::PrintDebugString(const std::string& line)
+ 
+ bool CLog::WriteLogString(int logLevel, const std::string& logString)
+ {
++#if defined(TARGET_LINUX)
++  static const char* prefixFormat = "%02.2d:%02.2d:%02.2d %10.6f T:%" PRIu64" %7s: ";
++#else
+   static const char* prefixFormat = "%02.2d:%02.2d:%02.2d T:%" PRIu64" %7s: ";
+-
++#endif
+   std::string strData(logString);
+   /* fixup newline alignment, number of spaces should equal prefix length */
+   StringUtils::Replace(strData, "\n", "\n                                            ");
+ 
+   int hour, minute, second;
+   s_globals.m_platform.GetCurrentLocalTime(hour, minute, second);
+-  
++
++#if defined(TARGET_LINUX)
++  struct timespec now;
++  clock_gettime(CLOCK_MONOTONIC, &now);
++  float Now = now.tv_sec + now.tv_nsec * 1e-9;
++#endif
++
+   strData = StringUtils::Format(prefixFormat,
+                                   hour,
+                                   minute,
+                                   second,
++#if defined(TARGET_LINUX)
++                                  Now,
++#endif
+                                   (uint64_t)CThread::GetCurrentThreadId(),
+                                   levelNames[logLevel]) + strData;
+ 
+-- 
+2.7.4
+

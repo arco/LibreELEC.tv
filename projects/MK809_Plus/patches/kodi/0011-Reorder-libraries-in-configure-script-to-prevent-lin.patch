@@ -1,0 +1,26 @@
+From 0871593a59af3520a61bf7e015366223274a7222 Mon Sep 17 00:00:00 2001
+From: Alex Deryskyba <alex@codesnake.com>
+Date: Fri, 5 Aug 2016 01:01:23 +0200
+Subject: [PATCH 11/13] Reorder libraries in configure script to prevent linker
+ errors when linking with libsmbclient
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 5d47a4a..630bfe5 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1428,7 +1428,7 @@ fi
+ # samba
+ if test "x$use_samba" != "xno"; then
+   PKG_CHECK_MODULES([SAMBA], [smbclient],
+-    [INCLUDES="$INCLUDES $SAMBA_CFLAGS"; LIBS="$LIBS $SAMBA_LIBS"],
++    [INCLUDES="$INCLUDES $SAMBA_CFLAGS"; LIBS="$SAMBA_LIBS $LIBS"],
+     [AC_CHECK_LIB([smbclient], [main],,
+       use_samba=no;AC_MSG_ERROR($missing_library))
+       USE_LIBSMBCLIENT=0
+-- 
+2.7.4
+
