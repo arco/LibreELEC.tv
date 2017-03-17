@@ -1,0 +1,13 @@
+diff -Naur a/xbmc/cores/VideoPlayer/VideoRenderers/RenderManager.cpp b/xbmc/cores/VideoPlayer/VideoRenderers/RenderManager.cpp
+--- a/xbmc/cores/VideoPlayer/VideoRenderers/RenderManager.cpp	2016-07-01 08:13:27.000000000 +0200
++++ b/xbmc/cores/VideoPlayer/VideoRenderers/RenderManager.cpp	2016-07-24 05:48:24.804327468 +0200
+@@ -1361,7 +1361,8 @@
+     while (m_queued.front() != idx)
+     {
+       requeue(m_discard, m_queued);
+-      m_QueueSkip++;
++      if (m_format != RENDER_FMT_BYPASS)  // skips scares users ;)
++        m_QueueSkip++;
+     }
+ 
+     int lateframes = (renderPts - m_Queue[idx].pts) / frametime;
